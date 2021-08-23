@@ -30,6 +30,7 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
     name              = "${var.hostname}.${var.domain}"
     target_node       = "pxvh${var.host_id}"
     clone             = "ubuntu-1804LTS-template"
+    desc              = "Managed by Terraform"
     os_type           = "ubuntu"
     cores             = var.cores
     sockets           = "1"
