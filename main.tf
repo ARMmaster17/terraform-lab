@@ -30,4 +30,7 @@ module "dns" {
     source = "./modules/dns"
 
     ns_count = 1
+    ssh_key = var.ssh_key
+    ssh_private_key = var.ssh_private_key
+    domain = "gen2.firecore.lab"
 }

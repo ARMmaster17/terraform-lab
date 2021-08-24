@@ -8,11 +8,6 @@ variable "ssh_private_key" {
     sensitive = true
 }
 
-variable "sys_count" {
-    type = number
-    default = 1
-}
-
 variable "hostname" {
     type = string
     default = "default"
@@ -33,23 +28,9 @@ variable "ram" {
     default = 512
 }
 
-variable "username" {
-    type = string
-}
-
-variable "cipassword" {
-    type = string
-    sensitive = true
-}
-
 variable "setup_commands" {
     type = list(string)
     default = []
-}
-
-variable "host_id" {
-    type = number
-    default = 1
 }
 
 data "phpipam_subnet" "subnet" {

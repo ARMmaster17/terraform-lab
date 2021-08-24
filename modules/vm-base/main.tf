@@ -11,6 +11,17 @@ terraform {
   }
 }
 
+resource "random_password" "cipassword" {
+  length = 16
+  special = true
+  override_special = "_%@"
+}
+
+resource "random_integer" "node_id" {
+  min = 1
+  max = 3
+}
+
 resource "phpipam_address" "newip" {
   subnet_id   = data.phpipam_subnet.subnet.subnet_id
   ip_address  = data.phpipam_first_free_address.next_address.ip_address
@@ -26,9 +37,9 @@ resource "phpipam_address" "newip" {
 }
 
 resource "proxmox_vm_qemu" "proxmox_vm" {
-    count             = var.sys_count
+    count             = 1
     name              = "${var.hostname}.${var.domain}"
-    target_node       = "pxvh${var.host_id}"
+    target_node       = "pxvh${random_integer.node_id.result}"
     clone             = "ubuntu-1804LTS-template"
     desc              = "Managed by Terraform"
     os_type           = "ubuntu"
@@ -50,24 +61,25 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
     }
     lifecycle {
         ignore_changes  = [
+            target_node,
             network,
         ]
     }
     # Cloud Init Settings
     ipconfig0 = "ip=${data.phpipam_first_free_address.next_address.ip_address}/${data.phpipam_subnet.subnet.subnet_mask},gw=10.1.0.1"
-    ciuser = var.username
-    cipassword = var.cipassword
+    ciuser = "admin"
+    cipassword = random_password.cipassword.result
     sshkeys = <<-EOF
     ${var.ssh_key}
     EOF
     nameserver = "192.168.1.152"
 
-    ssh_user = var.username
+    ssh_user = "admin"
     ssh_private_key = var.ssh_private_key
 
     connection {
       type = "ssh"
-      user = var.username
+      user = "admin"
       private_key = var.ssh_private_key
       host = "${data.phpipam_first_free_address.next_address.ip_address}"
       port = 22

@@ -1,8 +1,13 @@
 module "dns_vm" {
     source = "../vm-base"
     
-    sys_count = var.ns_count
-    hostname = "ns"
-    ip_rng = "10.1.40."
-    host_id = 1
+    count = var.ns_count
+
+    ssh_key = var.ssh_key
+    ssh_private_key = var.ssh_private_key
+    hostname = "ns${count.index + 1}"
+    domain = var.domain
+    cores = 1
+    ram = 512
+    setup_commands = ["ls"]
 }
