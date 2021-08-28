@@ -58,6 +58,7 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
     network {
         model           = "virtio"
         bridge          = "internal"
+        firewall        = "false"
     }
     lifecycle {
         ignore_changes  = [
