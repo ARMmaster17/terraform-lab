@@ -47,10 +47,9 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
     cpu               = "kvm64"
     memory            = var.ram
     agent = 1
-    guest_agent_ready_timeout = 60
-    clone_wait = 60
-    additional_wait = 120
-    ci_wait = 60
+    clone_wait = 15
+    additional_wait = 0
+    ci_wait = 120
 
     scsihw            = "virtio-scsi-pci"
     bootdisk          = "scsi0"
