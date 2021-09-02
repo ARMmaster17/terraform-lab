@@ -67,14 +67,14 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
     }
     # Cloud Init Settings
     ipconfig0 = "ip=${data.phpipam_first_free_address.next_address.ip_address}/${data.phpipam_subnet.subnet.subnet_mask},gw=10.1.0.1"
-    ciuser = "admin"
+    ciuser = "ubuntu"
     cipassword = random_password.cipassword.result
     sshkeys = <<-EOF
     ${var.ssh_key}
     EOF
     nameserver = "192.168.1.152"
 
-    ssh_user = "admin"
+    ssh_user = "ubuntu"
     ssh_private_key = var.ssh_private_key
 
     provisioner "remote-exec" {
@@ -87,8 +87,8 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
         )
       connection {
         type = "ssh"
-        user = "admin"
-        password = random_password.cipassword.result
+        user = "ubuntu"
+        private_key = var.ssh_private_key
         host = "${data.phpipam_first_free_address.next_address.ip_address}"
         port = 22
       }
