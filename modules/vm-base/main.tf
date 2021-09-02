@@ -78,14 +78,6 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
     ssh_user = "admin"
     ssh_private_key = var.ssh_private_key
 
-    connection {
-      type = "ssh"
-      user = "admin"
-      private_key = var.ssh_private_key
-      host = "${data.phpipam_first_free_address.next_address.ip_address}"
-      port = 22
-    }
-
     provisioner "remote-exec" {
       inline = concat([
                 "sudo apt-get update",
@@ -94,5 +86,12 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
             ],
             var.setup_commands
         )
+      connection {
+        type = "ssh"
+        user = "admin"
+        private_key = var.ssh_private_key
+        host = "${data.phpipam_first_free_address.next_address.ip_address}"
+        port = 22
+      }
     }
 }
