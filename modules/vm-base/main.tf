@@ -13,8 +13,7 @@ terraform {
 
 resource "random_password" "cipassword" {
   length = 16
-  special = true
-  override_special = "_%@"
+  special = false
 }
 
 resource "random_integer" "node_id" {
@@ -89,7 +88,7 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
       connection {
         type = "ssh"
         user = "admin"
-        private_key = var.ssh_private_key
+        password = random_password.cipassword.result
         host = "${data.phpipam_first_free_address.next_address.ip_address}"
         port = 22
       }
