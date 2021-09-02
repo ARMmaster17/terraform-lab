@@ -78,9 +78,8 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
 
     provisioner "remote-exec" {
       inline = concat([
-                "sudo apt-get update",
-                "sudo apt-get install qemu-guest-agent -y",
-                "sudo service qemu-guest-agent start"
+                "while [ test -f /var/lib/dpkg/lock-frontend ]; do sleep 1; done"
+                "sudo apt-get update"
             ],
             var.setup_commands
         )
