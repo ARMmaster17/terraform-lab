@@ -40,7 +40,7 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
     count             = 1
     name              = "${var.hostname}.${var.domain}"
     target_node       = "pxvh${random_integer.node_id.result}"
-    clone             = "ubuntu-1804LTS-template"
+    clone             = "ubuntu-2004-cloudinit-qemu-template"
     desc              = "Managed by Terraform"
     os_type           = "ubuntu"
     cores             = var.cores
@@ -54,7 +54,7 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
     ci_wait = 60
 
     scsihw            = "virtio-scsi-pci"
-    bootdisk          = "scsi1"
+    bootdisk          = "scsi0"
     network {
         model           = "virtio"
         bridge          = "internal"
