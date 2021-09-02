@@ -78,7 +78,7 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
 
     provisioner "remote-exec" {
       inline = concat([
-                "while [ test -f /var/lib/dpkg/lock-frontend ]; do sleep 1; done"
+                "while [ test -f /var/lib/dpkg/lock-frontend ]; do sleep 1; done",
                 "sudo apt-get update"
             ],
             var.setup_commands
