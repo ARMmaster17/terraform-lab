@@ -11,7 +11,7 @@ module "k3s_master_vm" {
   ram = 2048
   setup_commands = [
     "sudo apt-get install bind9 bind9utils bind9-doc -y",
-    ""
+    "ls"
   ]
   # Use k3sup here?
 }
