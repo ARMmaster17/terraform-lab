@@ -9,6 +9,6 @@ module "dns_vm" {
     domain = var.domain
     cores = 1
     ram = 1024
-    setup_commands = ["sudo apt-get install bind9 bind9utils bind9-doc", ]
+    setup_commands = ["sudo apt-get install bind9 bind9utils bind9-doc -y", "ls"]
     # Using https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-caching-or-forwarding-dns-server-on-ubuntu-16-04
 }
