@@ -10,8 +10,6 @@ module "k3s_master_vm" {
   cores = 1
   ram = 2048
   setup_commands = [
-    "sudo apt-get install bind9 bind9utils bind9-doc -y",
-    "ls"
+    "sleep 1" # For now, setup is done externally with k3sup
   ]
-  # Use k3sup here?
 }

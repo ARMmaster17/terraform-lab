@@ -9,6 +9,7 @@ module "dns_vm" {
   domain = var.domain
   cores = 1
   ram = 1024
-  setup_commands = ["sudo apt-get install bind9 bind9utils bind9-doc -y", "ls"]
-  # Use k3sup?
+  setup_commands = [
+    "sleep 1" # For now, setup is done externally with k3sup
+  ]
 }
