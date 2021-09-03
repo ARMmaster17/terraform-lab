@@ -78,7 +78,7 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
 
     provisioner "remote-exec" {
       inline = concat([
-                "sleep 15"
+                "sleep 15",
                 "/bin/bash -c 'while [ test -f /var/lib/dpkg/lock-frontend ]; do sleep 1; done'",
                 "sudo apt-get update"
             ],
