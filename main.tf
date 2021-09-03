@@ -39,7 +39,7 @@ module "k3s-dev" {
   source = "./modules/k3s-cluster"
 
   cluster_name = "production"
-  node_count = 3
+  node_count = 2
   ssh_key = var.ssh_key
   ssh_private_key = var.ssh_private_key
   domain = "gen2.firecore.lab"
