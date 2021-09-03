@@ -78,8 +78,8 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
 
     provisioner "remote-exec" {
       inline = concat([
-                #"sleep 60", # Wait for all the APT/Cloud-Init stuff to finish.
-                "/bin/bash -c 'while [ -f /var/lib/dpkg/lock-frontend ]; do sleep 1; done'",
+                "sleep 60", # Wait for all the APT/Cloud-Init stuff to finish.
+                #"/bin/bash -c 'while [ -f /var/lib/dpkg/lock-frontend ]; do sleep 1; done'", # Doesn't work, file is never deleted.
                 "sudo apt-get update"
             ],
             var.setup_commands
